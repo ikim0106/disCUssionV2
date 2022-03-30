@@ -1,32 +1,71 @@
+/*
+References
+1. https://cloudinary.com/documentation/upload_images
+2. https://stackoverflow.com/questions/54469133/uploading-image-to-cloudinary-express-js-react-axios-post-request
+
+*/
+
 import React from 'react'
 import {TextInput, Text, Box, Button, Notification, FileInput} from 'grommet'
 import { CloudUpload, Send, Validate } from 'grommet-icons'
+const konfig = require('../cloudinaryURL.json') //spelled differently to avoid future clashes
+
+let cloudinary = konfig.cloudinaryURL //some json string issue
 
 const Signup = () => {
   const [displayName, setDisplayName] = React.useState()
   const [email, setEmail] = React.useState()
   const [code, setCode] = React.useState()
+  const [verified, setVerified] = React.useState(false)
   const [pw, setPw] = React.useState()
   const [secondpw, setSecondpw] = React.useState()
   // const [reveal, setReveal] = React.useState(false)
   const [toast, setToast] = React.useState(false)
   const [pwToast, setPwToast] = React.useState(false)
-  const [avatar, setAvatar] = React.useState()
+  const [avatar, setAvatar] = React.useState('')
 
   const hiddenFileInput = React.useRef(null);
   const handleAvatarClick = (event) => {
       hiddenFileInput.current.click()
   }
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!email || !pw || !secondpw || !displayName || !code) {
       setToast(true)
     }
     if (pw !== secondpw) {
       setPwToast(true)
     }
+
+    const postConfig = {
+      headers: { "Content-type" : "application/json" }
+    }
+    
   }
 
+  const postAvatar = (avatar) => {
+    if(avatar.type==='image/jpeg' || avatar.type==='image/png') {
+      let imgData = new FormData()
+      imgData.append('file', avatar)
+      imgData.append('upload_preset', 'disCUssion')
+      imgData.append('cloud_name', 'discussion')
+      console.log('imgData', imgData)
+      let cloudinaryParams = {
+        method:'post',
+        body: imgData
+      }
+      console.log('cloudinaryURL', cloudinary)
+      fetch(cloudinary, cloudinaryParams)
+        .then((response)=> response.json())
+        .then(data => {
+          // console.log(data.url)
+          setAvatar(data.url)
+      })
+        .catch((err) => {console.log(err)})
+      
+    }
+    else return
+  }
 
   return (
     <Box width='25em'>
@@ -111,7 +150,7 @@ const Signup = () => {
           name='file'
           ref={hiddenFileInput}
           accept='image/*'
-          onChange={(event)=> console.log(event)}
+          onChange={(event)=> postAvatar(event.target.files[0])}
           style={{display: 'none'}}
         />
         </Box>

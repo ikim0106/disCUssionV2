@@ -14,16 +14,21 @@ let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
 let userSchema = new Schema({
-   display_name: {type: String, trim: true, required: true},
-   is_admin: {type: Boolean, default: true},
-   email: {type: String, required: true},
+   displayName: {type: String, trim: true, required: true},
+   is_admin: {type: Boolean, default: false},
+   email: {type: String, required: true, unique: true},
    pw: {type: String, required: true},
+   verified: {type: Boolean, required: true, default: false},
    avatar: {type: String,
       default: "https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-avatar-user-experience-flatart-icons-outline-flatarticons.png"},
 },
 {
    timestamps: true
 })
+
+userSchema.methods.checkPw = async (pw) => {
+   return (toString(this.pw) == toString(pw)) //some json string issue ㅡ.ㅡ
+}
 
 let userModel = mongoose.model('userModel', userSchema)
 module.exports = userModel
