@@ -1,8 +1,11 @@
 const express = require('express')
 const config = require('../config.json')
 const {dummyData} = require('./data/dummyData')
+const connectToMongoDB = require('./mongo/mongoDB')
 
 const serber = express() //no i didn't misspell server
+
+connectToMongoDB()
 
 serber.get('/', (request, response) => {
    console.log("삽족밥~")

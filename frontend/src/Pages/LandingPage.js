@@ -26,27 +26,26 @@ const LandingPage = () => {
       direction="column"
       justify="center"
       align="center"
-      pad="large"
+      pad="medium"
       background="none"
-      gap="medium"
+      gap="small"
    >
       <Box
          pad="small"
          align="center"
          width="30em"
          border= {{color: "#A020F0", size: "small"}}
-         background={{color: 'rgba(255, 255, 255, 0.7)'}}
+         background={{color: 'rgba(255, 255, 255, 0.8)'}}
          round
          gap="small"
       >
          <Text
-         margin='small'
+         // margin='small'
          size='3xl'
          >
             disCUssion
          </Text>
          <Text
-         margin='small'
          size='medium'
          >
             Log in or sign up to disCUss!
@@ -57,20 +56,19 @@ const LandingPage = () => {
          align="center"
          width="30em"
          border = {{color: "#FFD700", size: "small"}}
-         background={{color: 'rgba(255, 255, 255, 0.7)'}}
+         background={{color: 'rgba(255, 255, 255, 0.8)'}}
          round
          gap="small"
       >
          <Tabs width='25em' margin='small' justify='center' flex="grow">
          <Tab title="Log in" icon={<Return/>}>
-            <Box fill align = 'center' pad="small"><Login/></Box>
+            <Box align = 'center' pad="small"><Login/></Box>
          </Tab>
          <Tab title="Sign up" icon={<FormEdit/>}>
-            <Box fill align = 'center' pad="small"><Signup/></Box>
+            <Box align = 'center' pad="small"><Signup/></Box>
          </Tab>
          </Tabs>
       </Box>
-      <Login/>
    </Box>         
       </div>
    </div>
