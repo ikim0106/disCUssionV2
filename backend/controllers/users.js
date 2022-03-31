@@ -4,10 +4,83 @@ References:
 2. https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
 3. https://expressjs.com/en/guide/error-handling.html
 4. https://mongoosejs.com/docs/guide.html
+5. https://www.npmjs.com/package/mailgun.js
 
 */
 const userSchema = require('../databaseSchema/userSchema')
 const asyncHandler = require('express-async-handler')
+const konfig = require('../../config.json')
+const nodemailer = require('nodemailer')
+
+const transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+      user: konfig.nodemailerEmail,
+      pass: konfig.nodemailerPW
+   }
+})
+
+const sendVerificationCode = asyncHandler(async (req, res) => {
+   console.log(req.body)
+   const {email, rando} = req.body
+   if(!email) {
+      res.status(400)
+      throw new Error("no email provided")
+   } else {
+      res.status(201).json({
+         email: email,
+         rando: rando
+      })
+   }
+
+   const mailOptions = {
+      from: 'disCUssion',
+      to: email,
+      subject: 'disCUssion verification code',
+      html: `Your verification code is ${rando}`,
+   }
+
+   transporter.sendMail(mailOptions, (err, msg) => {
+      if(err) {
+         res.json(err)
+      }
+      else {
+         console.log('mail sent!', msg)
+         res.json(msg)
+      }
+   })
+})
+
+// const mgKey = konfig.mailgunKey
+// const formData = require('form-data')
+// const Mailgun = require('mailgun.js')
+// const mailgun= new Mailgun(formData)
+// const mg = mailgun.client({
+//    username: 'api',
+//    key: mgKey
+// })
+
+// const sendVerificationCode = asyncHandler(async (req, res) => {
+//    console.log(req.body)
+//    const {email, rando} = req.body
+//    if(!email) {
+//       res.status(400)
+//       throw new Error("No email provided")
+//    } else {
+//       res.status(201).json({
+//          email: email,
+//          rando: rando
+//       })
+//    }
+
+//    const messageParams = {
+//       from: "disCUssion <discussion@sandbox95b082d195f24a0ca4e54e41e2a11c73.mailgun.org>",
+//       to: [email],
+//       subject: "disCUssion Verification Code",
+//       text: rando
+//    }
+//    mg.messages.create("sandbox95b082d195f24a0ca4e54e41e2a11c73.mailgun.org", messageParams)
+// })
 
 const loginAdmin = asyncHandler(async(req, res) => {
    const {email, password, is_admin} = req.body
@@ -68,8 +141,8 @@ const signupUser = asyncHandler(async (req, res) => {
          verified: newUser.verified,
          avatar: newUser.avatar,
       }
-      res.status(201).json(newUserJSON).send('new user successfully created')
+      res.status(201).json(newUserJSON)
    }
 })
 
-module.exports = { loginAdmin, loginUser, signupUser }
+module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode }
