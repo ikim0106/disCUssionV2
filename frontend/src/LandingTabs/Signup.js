@@ -45,6 +45,10 @@ const Signup = () => {
       hiddenFileInput.current.click()
   }
 
+  React.useEffect(() => {
+    return () => {}
+  }, [])
+
   let bruh = []
    
    const sendEmail = async () => {
@@ -113,7 +117,7 @@ const Signup = () => {
       setVerifiedToast(true)
       return
     }
-    if(!avatar) setAvatar('https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-avatar-user-experience-flatart-icons-outline-flatarticons.png')
+    if(!avatar||avatar==='') setAvatar('https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-avatar-user-experience-flatart-icons-outline-flatarticons.png')
 
     const postConfig = { //the format of the data in the axios call
       headers: { "Content-type" : "application/json" }
@@ -124,13 +128,13 @@ const Signup = () => {
     .then(res => {
       console.log('pog new user', res) //debug
       history.push('/discuss')
-      localStorage.setItem('userJSON', JSON.stringify(signupJSON))
     })
     .catch(error => {
       console.log('error on signup', error)
       setExists(true)
       return
     })
+    localStorage.setItem('userJSON', JSON.stringify(signupJSON))
   }
 
   const postAvatar = (avatar) => {

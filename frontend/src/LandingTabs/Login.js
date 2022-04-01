@@ -11,6 +11,11 @@ const Login = () => {
   const [toast, setToast] = React.useState(false)
   const [wrong, setWrong] = React.useState(false)
 
+    React.useEffect(() => {
+      return () => {}
+    }, [])
+
+
   const handleLogin = async () => {
     if(!email || !pw) {
       setToast(true)
@@ -25,13 +30,13 @@ const Login = () => {
     .then(res => {
       console.log('pog logged in', res) //debug
       history.push('/discuss')
-      localStorage.setItem('userJSON', JSON.stringify(loginJSON))
     })
     .catch(error => {
       console.log('error on login', error)
       setWrong(true)
       return
     })
+    localStorage.setItem('userJSON', JSON.stringify(loginJSON))
   }
 
   return (

@@ -9,13 +9,14 @@ server.js handles the backend server using express and its routes
 */
 
 const express = require('express')
-const { append } = require('express/lib/response')
+// const { append } = require('express/lib/response')
 const config = require('../config.json')
 const {dummyData} = require('./data/dummyData')
 const connectToMongoDB = require('./mongo/mongoDB')
 const {infamous404, errorHandler} = require('./controllers/handleErrors')
 const PORT = parseInt(config.port) || 3004 //default to 3004
 const userRouter = require('./routes/userRouter')
+const chatRouter = require('./routes/chatRouter')
 
 const serber = express() //no i didn't misspell server
 serber.use(express.json()) //let express use JSON formatted data
@@ -37,8 +38,10 @@ serber.get('/api/getChats/', (request, response) => {
 })
 
 serber.use('/api/users', userRouter)
+serber.use('/api/discuss', chatRouter)
+
 serber.use(errorHandler)
 serber.use(infamous404)
 
 
-serber.listen(PORT, console.log(`server started, listening on port ${PORT}`))
+serber.listen(PORT, console.log(`backend started, listening on port ${PORT}`))

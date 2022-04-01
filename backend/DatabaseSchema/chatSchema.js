@@ -4,12 +4,9 @@ References
 2. https://stackoverflow.com/questions/26936645/mongoose-private-chat-message-model
 3. https://mongoosejs.com/docs/guide.html
 
-All these resources were used as learning materials. The general structure of this
-mongoose schema was taken from these resources.
-A chat can either be a one-on-one chat or a chat with 3 or more people, is_group
-differentiates the two. In a group chat, the chat creator is a manager of that chat
-otherwise, there will be no admin.
-This module is exported to be used by other modules.
+All these resources were used as learning materials. The general structure of this mongoose schema was taken from these resources.
+A chat can either be a one-on-one chat or a chat with 3 or more people, is_group differentiates the two. In a group chat, the chat creator is a manager of that chat otherwise, there will be no admin.
+This module is exported to be used by other modules (chat.js)
 */
 
 let mongoose = require('mongoose')

@@ -8,5 +8,5 @@ rename configSAMPLE.json to config.json and replace contents with your own confi
 
 # bits and pieces
 mongo, express, react, nodejs, grommet, socket.io (soon), WebRTC(soon?)\
-project inspired by jaewonhimnae
+project inspired by jaewonhimnae\
 references: jaewonhimnae/react-chat, John An on YouTube, discord-chat by ADAMJR (deprecated), dclone by ADAMJR (deprecated)

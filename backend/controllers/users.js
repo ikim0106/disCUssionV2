@@ -5,6 +5,11 @@ References:
 3. https://expressjs.com/en/guide/error-handling.html
 4. https://mongoosejs.com/docs/guide.html
 5. https://www.npmjs.com/package/mailgun.js
+6. https://www.digitalocean.com/community/tutorials/how-to-perform-full-text-search-in-mongodb
+7. https://www.mongodb.com/docs/manual/tutorial/query-documents/
+8. https://www.mongodb.com/docs/manual/reference/operator/query/or/
+9. https://www.mongodb.com/docs/manual/reference/operator/query/ne/
+10. https://stackoverflow.com/questions/7878557/cant-find-documents-searching-by-objectid-using-mongoose
 
 */
 const userSchema = require('../databaseSchema/userSchema')
@@ -49,6 +54,26 @@ const sendVerificationCode = asyncHandler(async (req, res) => {
          res.json(msg)
       }
    })
+})
+
+const searchUser = asyncHandler(async (req, res) => {
+   let searchParams = req.query.search
+   let searchRegEx = new RegExp(searchParams, 'i') //regex for searching email/displayName
+   const query = searchParams ? {
+      $or: [
+         { displayName: {$regex: searchRegEx}},
+         { email: {$regex: searchRegEx}},
+      ]
+   } : {}
+   // console.log('query', searchParams)
+   // console.log('request', req.user)
+   const searchedUsers = await userSchema.find(query)
+   .find({
+      _id: {
+         $ne: req.loggedInUser._id
+      }
+   })
+   console.log('searchedUsers', searchedUsers)
 })
 
 // const mgKey = konfig.mailgunKey
@@ -145,4 +170,4 @@ const signupUser = asyncHandler(async (req, res) => {
    }
 })
 
-module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode }
+module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode, searchUser }
