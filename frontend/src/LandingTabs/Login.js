@@ -29,7 +29,12 @@ const Login = () => {
     .post('/api/users/login', {email, pw}, postConfig)
     .then(res => {
       console.log('pog logged in', res) //debug
-      history.push('/discuss')
+      if (res.data.is_admin) {
+          window.location.replace("https://cloud.mongodb.com/v2/621fb313afbcfd38fccb8e15#metrics/replicaSet/623ff7e41d7bde1b70109259/explorer")
+      }
+      else {
+          history.push('/discuss')
+      }
     })
     .catch(error => {
       console.log('error on login', error)

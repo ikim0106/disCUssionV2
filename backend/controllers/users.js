@@ -112,7 +112,7 @@ const loginAdmin = asyncHandler(async(req, res) => {
 })
 
 const loginUser = asyncHandler(async(req, res) => {
-   const {email, pw} = req.body
+   const {email, pw, is_admin} = req.body
    const login = await userSchema.findOne({email, pw})
    if(!login) {
       res.status(401)
@@ -123,6 +123,7 @@ const loginUser = asyncHandler(async(req, res) => {
          _id: login._id, //mongoose auto-generated id
          email: login.email,
          pw: login.pw,
+         is_admin: login.is_admin,
       }
       if(await login.checkPw(pw)){
          res.json(userJSON)
