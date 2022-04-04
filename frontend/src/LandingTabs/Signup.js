@@ -275,10 +275,10 @@ const Signup = () => {
         />
 
 
-      <Text margin={{top: '0.7em', bottom: '0.3em'}}>Second password  <Text color='red'>*</Text></Text>
+      <Text margin={{top: '0.7em', bottom: '0.3em'}}>Confirm password  <Text color='red'>*</Text></Text>
       <Box direction = 'row'>
       <TextInput
-        placeholder={<Text color='grey'>Enter second password</Text>}
+        placeholder={<Text color='grey'>Enter confirmation password</Text>}
         value={secondpw}
         type='password'
         size='medium'

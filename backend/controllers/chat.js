@@ -49,8 +49,7 @@ const discuss = asyncHandler(async(req, res) => {
    // return
 
    let PM = undefined
-   //classic for loop to compare chatrooms
-
+   //classic nested for loop to compare chatrooms something like this can be handled in the database/mongoose, but i guess our host can handle this type of simple computation
    if(currentUser!==undefined && otherUser!==undefined){
       for(let i=0; i<otherUser.length; i++) {
          for(let j=0; j< currentUser.length; j++) {
