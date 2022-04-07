@@ -8,9 +8,11 @@ References
 
 const router = require('express').Router()
 const {getLoggedinUser} = require('../middleware/logMiddleware')
-const {discuss} = require('../controllers/chat')
+const {discuss, getAllChatrooms} = require('../controllers/chat')
 
+router.route('/').get(getLoggedinUser, getAllChatrooms)
 router.route('/').post(getLoggedinUser, discuss)
+// router.route('/').post(getLoggedinUser, )
 // router.route('/createGroupchat').post(getLoggedinUser, createGroupchat)
 
 // router.route('/', getHistory)
