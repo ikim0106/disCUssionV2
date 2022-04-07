@@ -7,7 +7,7 @@ We were well aware that our proposed project could be completed relatively easil
 
 # Additional Information
 Written in MERN along with nodemailer, grommet UI library, socket.io (soon), WebRTC(?), and more\
-project heavily referenced from: https://github.com/jaewonhimnae/react-chat\
+project heavily referenced from: https://github.com/jaewonhimnae/react-chat \
 general references: jaewonhimnae/react-chat, John An on YouTube, discord-chat by ADAMJR (deprecated), dclone by ADAMJR (deprecated)\
 file and feature specific references and comments can be found in individual files
 
