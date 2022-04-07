@@ -10,6 +10,7 @@ References:
 8. https://www.mongodb.com/docs/manual/reference/operator/query/or/
 9. https://www.mongodb.com/docs/manual/reference/operator/query/ne/
 10. https://stackoverflow.com/questions/7878557/cant-find-documents-searching-by-objectid-using-mongoose
+11. https://stackoverflow.com/questions/12096262/how-to-protect-the-password-field-in-mongoose-mongodb-so-it-wont-return-in-a-qu
 
 */
 const userSchema = require('../databaseSchema/userSchema')

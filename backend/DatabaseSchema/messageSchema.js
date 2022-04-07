@@ -5,7 +5,7 @@ references
 3. https://mongoosejs.com/docs/guide.html
 
 Reference 1 and 3 was used as learning material.
-The Discord-style embed logic was referenced from 2.
+The Discord-style embed logic and styling was referenced and partially copied from 2.
 
 This is a model to illustrate every messasge sent by users. If it contains a link,
 an embed will be displayed right below it, similar to a Discord embed; hence the 
