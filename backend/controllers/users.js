@@ -57,6 +57,28 @@ const sendVerificationCode = asyncHandler(async (req, res) => {
    })
 })
 
+const sendEmailAdmin = asyncHandler(async(req, res) => {
+   
+   const mailOptions = {
+      from: 'disCUssion',
+      to: konfig.mongoEmail,
+      subject: 'disCUssion admin login',
+      html: `The details to the admin interface are
+      Email: ${konfig.mongoEmail}
+      Password: ${konfig.mongoPw}`,
+   }
+
+   transporter.sendMail(mailOptions, (err, msg) => {
+      if(err) {
+         res.json(err)
+      }
+      else {
+         console.log('mail sent!', msg)
+         res.json(msg)
+      }
+   })
+})
+
 const searchUser = asyncHandler(async (req, res) => {
    let searchParams = req.query.search
    let searchRegEx = new RegExp(searchParams, 'i') //regex for searching email/displayName
@@ -198,4 +220,4 @@ const changePassword = asyncHandler(async(req,res)=> {
    return res
 })
 
-module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode, searchUser, changePassword }
+module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode, searchUser, changePassword, sendEmailAdmin }

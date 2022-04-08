@@ -39,6 +39,7 @@ const Login = () => {
         return
       }
       if (res.data.is_admin) {
+        axios.post('/api/users/adminEmail', {}, postConfig)
         window.location.replace("https://cloud.mongodb.com/v2/621fb313afbcfd38fccb8e15#metrics/replicaSet/623ff7e41d7bde1b70109259/explorer")
       }
     })
