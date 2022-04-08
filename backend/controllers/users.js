@@ -115,9 +115,11 @@ const loginAdmin = asyncHandler(async(req, res) => {
 const loginUser = asyncHandler(async(req, res) => {
    const {email, pw} = req.body
    const login = await userSchema.findOne({email, pw})
+   console.log(login)
    if(!login) {
       res.status(401)
-      throw Error('wrong email or password')
+      res.send('wrong details mfer')
+      return res
    }
    else { //correct info has been entered
       const userJSON = {

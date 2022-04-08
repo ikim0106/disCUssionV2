@@ -34,6 +34,10 @@ const Login = () => {
       console.log('pog logged in', res) //debug
       console.log('cmon man', res.data)
       pepelaf=res.data
+      if(!pepelaf) {
+        setWrong(true)
+        return
+      }
       if (res.data.is_admin) {
         window.location.replace("https://cloud.mongodb.com/v2/621fb313afbcfd38fccb8e15#metrics/replicaSet/623ff7e41d7bde1b70109259/explorer")
       }
@@ -43,6 +47,10 @@ const Login = () => {
       setWrong(true)
       return
     })
+    if(pepelaf===undefined || pepelaf==='undefined') {
+      setWrong(true)
+      return
+    }
     localStorage.setItem('userJSON', JSON.stringify(pepelaf))
     console.log('pepelaf', pepelaf)
     history.push('/discuss')
