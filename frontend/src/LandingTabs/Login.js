@@ -25,23 +25,25 @@ const Login = () => {
       headers: {"Content-type" : "application/json"}
     }
 
+    let pepelaf
+
     const loginJSON = await axios
     .post('/api/users/login', {email, pw}, postConfig)
     .then(res => {
       console.log('pog logged in', res) //debug
+      console.log('cmon man', res.data)
+      localStorage.setItem('userJSON', JSON.stringify(res.data))
       if (res.data.is_admin) {
-          window.location.replace("https://cloud.mongodb.com/v2/621fb313afbcfd38fccb8e15#metrics/replicaSet/623ff7e41d7bde1b70109259/explorer")
+        window.location.replace("https://cloud.mongodb.com/v2/621fb313afbcfd38fccb8e15#metrics/replicaSet/623ff7e41d7bde1b70109259/explorer")
       }
-      else {
-          history.push('/discuss')
-      }
+      history.push('/discuss')
     })
     .catch(error => {
       console.log('error on login', error)
       setWrong(true)
       return
     })
-    localStorage.setItem('userJSON', JSON.stringify(loginJSON))
+    // localStorage.setItem('userJSON', JSON.stringify(loginJSON))
   }
 
   return (

@@ -3,6 +3,7 @@ import Login from '../LandingTabs/Login'
 import Signup from '../LandingTabs/Signup'
 import {Box, Text, Tabs, Tab} from 'grommet'
 import {FormEdit, Return} from 'grommet-icons'
+import { useHistory } from 'react-router-dom'
 
    const myStyle = {
       backgroundImage: "url(https://elephant.com.hk/wp-content/uploads/2018/05/CUHK-1.jpg)",
@@ -19,9 +20,26 @@ import {FormEdit, Return} from 'grommet-icons'
    }
 
 const LandingPage = () => {
+   const redir = useHistory()
+   
+   React.useEffect(() => {
+      let userJSON = localStorage.getItem('userJSON')
+      if(userJSON !== 'undefined' && userJSON !== null) {
+         console.log('userJSON', userJSON)
+         redir.push('/discuss')
+      }
+      else {
+         console.log('userJSON', userJSON)
+         redir.push('/')
+      }
+      
+   }, [redir])
+
    return (
    <div style = {myStyle}>
-      <div style = {opacityCover}>
+   <div style = {opacityCover}>
+
+
    <Box
       direction="column"
       justify="center"

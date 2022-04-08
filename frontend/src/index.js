@@ -2,17 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {BrowserRouter} from 'react-router-dom'
+import ChatState from './state/State'
 // import { Grommet } from 'grommet'
 import App from './App';
 
 // import reportWebVitals from './reportWebVitals';
 
+// console.log('ChatState', ChatState)
+
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ChatState>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </ChatState>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

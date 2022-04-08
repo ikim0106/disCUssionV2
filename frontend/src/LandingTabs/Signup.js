@@ -127,6 +127,8 @@ const Signup = () => {
     .post('/api/users/signup', {displayName, is_admin, email, pw, verified, avatar}, postConfig)
     .then(res => {
       console.log('pog new user', res) //debug
+      console.log('cmon man', res.data)
+      localStorage.setItem('userJSON', JSON.stringify(res.data))
       history.push('/discuss')
     })
     .catch(error => {
@@ -134,7 +136,7 @@ const Signup = () => {
       setExists(true)
       return
     })
-    localStorage.setItem('userJSON', JSON.stringify(signupJSON))
+    // localStorage.setItem('userJSON', JSON.stringify(signupJSON))
   }
 
   const postAvatar = (avatar) => {
