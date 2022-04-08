@@ -9,10 +9,9 @@ References:
 import React from 'react'
 import {useHistory} from 'react-router-dom'
 
-const Context = React.createContext()
 const ChatState = ({children}) => {
    const [loggedinUser, setLoggedinUser] = React.useState()
-   const redir = useHistory()
+   const history = useHistory()
    
    React.useEffect(() => {
       let userJSON = localStorage.getItem('userJSON')
@@ -20,18 +19,18 @@ const ChatState = ({children}) => {
          console.log('userJSON', userJSON)
          JSON.parse(userJSON)
          setLoggedinUser(userJSON)
-         redir.push('/discuss')
       }
       else {
          // console.log('redir', redir)
-         redir.push('/')
+         history.push('/')
       }
       
-   }, [redir])
+   }, [history])
    // console.log('wtf', children)
    return (<Context.Provider value={{loggedinUser, setLoggedinUser}}>{children}</Context.Provider>)
 }
 
+const Context = React.createContext()
 export const Chat = () => {
    const lmao = React.useContext(Context)
    console.log('lmao', lmao)

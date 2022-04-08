@@ -36,6 +36,7 @@ const Signup = () => {
   const [pwToast, setPwToast] = React.useState(false)
   const [emailToast, setEmailToast] = React.useState(false)
   const [avatarToast, setAvatarToast] = React.useState(false)
+  const [emailVerifyToast, setEmailVerifyToast] = React.useState(false)
   const [avatar, setAvatar] = React.useState('')
   const [randomNum, setRandomNum] = React.useState()
   const [exists, setExists] = React.useState(false)
@@ -45,9 +46,9 @@ const Signup = () => {
       hiddenFileInput.current.click()
   }
 
-  React.useEffect(() => {
-    return () => {}
-  }, [])
+  // React.useEffect(() => {
+  //   return () => {}
+  // }, [])
 
   let bruh = []
    
@@ -80,6 +81,7 @@ const Signup = () => {
          rando
        }, config)
        console.log(`sent email to ${email}`)
+       setEmailVerifyToast(true)
        return
      } catch (err) {
        console.log('failed to send email', err)
@@ -105,7 +107,7 @@ const Signup = () => {
 
   const handleSignup = async () => {
     let is_admin = false
-    if (!email || !pw || !secondpw || !displayName) {
+    if (!email || !pw || !secondpw || !displayName || !avatar) {
       setToast(true)
       return
     }
@@ -117,13 +119,12 @@ const Signup = () => {
       setVerifiedToast(true)
       return
     }
-    if(!avatar||avatar==='') setAvatar('https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-avatar-user-experience-flatart-icons-outline-flatarticons.png')
 
     const postConfig = { //the format of the data in the axios call
       headers: { "Content-type" : "application/json" }
     }
 
-    const signupJSON = await axios
+    await axios
     .post('/api/users/signup', {displayName, is_admin, email, pw, verified, avatar}, postConfig)
     .then(res => {
       console.log('pog new user', res) //debug
@@ -199,6 +200,15 @@ const Signup = () => {
           status='warning'
           title="Please enter a valid email"
           onClose={() => setEmailToast(false)}
+        />
+      )}
+
+      {emailVerifyToast && (
+        <Notification
+          toast
+          status='normal'
+          title="Please check your email for your verification code"
+          onClose={() => setEmailVerifyToast(false)}
         />
       )}
 
@@ -288,7 +298,7 @@ const Signup = () => {
         />
       </Box>
 
-      <Text margin={{top: '0.7em', bottom: '0.3em'}}>Upload avatar </Text>
+      <Text margin={{top: '0.7em', bottom: '0.3em'}}>Upload avatar <Text color='red'>*</Text></Text>
 
       <Box direction='row'>
         <Button

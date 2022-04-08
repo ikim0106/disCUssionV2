@@ -113,7 +113,7 @@ const loginAdmin = asyncHandler(async(req, res) => {
 })
 
 const loginUser = asyncHandler(async(req, res) => {
-   const {email, pw, is_admin} = req.body
+   const {email, pw} = req.body
    const login = await userSchema.findOne({email, pw})
    if(!login) {
       res.status(401)
@@ -124,6 +124,8 @@ const loginUser = asyncHandler(async(req, res) => {
          _id: login._id, //mongoose auto-generated id
          email: login.email,
          pw: login.pw,
+         avatar: login.avatar,
+         displayName: login.displayName,
          is_admin: login.is_admin,
       }
       if(await login.checkPw(pw)){
@@ -172,4 +174,26 @@ const signupUser = asyncHandler(async (req, res) => {
    }
 })
 
-module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode, searchUser }
+const changePassword = asyncHandler(async(req,res)=> {
+   let {id, newPassword} = req.body
+
+   let toEditUser = await userSchema.findOne({
+      _id: id
+   })
+
+   console.log('newpw', newPassword)
+
+   if(!toEditUser) {
+      res.status(400)
+      res.send('invalid user')
+      return res
+   }
+   toEditUser.pw = newPassword
+   // console.log('toEdituser', toEditUser)
+   await toEditUser.save()
+   res.status(200)
+   res.send(toEditUser)
+   return res
+})
+
+module.exports = { loginAdmin, loginUser, signupUser, sendVerificationCode, searchUser, changePassword }

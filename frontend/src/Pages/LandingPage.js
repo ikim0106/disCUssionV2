@@ -26,7 +26,7 @@ const LandingPage = () => {
       let userJSON = localStorage.getItem('userJSON')
       if(userJSON !== 'undefined' && userJSON !== null) {
          console.log('userJSON', userJSON)
-         redir.push('/discuss')
+         // redir.push('/discuss')
       }
       else {
          console.log('userJSON', userJSON)

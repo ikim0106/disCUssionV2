@@ -315,11 +315,13 @@ const removeFromGroup = asyncHandler(async(req,res) => {
    return res
 })
 
+
+
 module.exports = { 
    discuss, 
    getAllChatrooms, 
    makeGroup, 
    renameGroup, 
    addToGroup, 
-   removeFromGroup 
+   removeFromGroup
 }
