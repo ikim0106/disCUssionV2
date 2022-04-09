@@ -11,6 +11,8 @@ import {useHistory} from 'react-router-dom'
 
 const ChatState = ({children}) => {
    const [loggedinUser, setLoggedinUser] = React.useState()
+   const [selectedChat, setSelectedChat] = React.useState()
+   const [allChats, setAllChats] = React.useState([])
    const history = useHistory()
    
    React.useEffect(() => {
@@ -27,7 +29,13 @@ const ChatState = ({children}) => {
       
    }, [history])
    // console.log('wtf', children)
-   return (<Context.Provider value={{loggedinUser, setLoggedinUser}}>{children}</Context.Provider>)
+   return (
+   <Context.Provider value={{
+      loggedinUser, setLoggedinUser, selectedChat, setSelectedChat,
+      allChats, setAllChats
+      }}>
+      {children}
+   </Context.Provider>)
 }
 
 const Context = React.createContext()

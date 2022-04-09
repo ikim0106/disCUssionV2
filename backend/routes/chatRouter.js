@@ -19,18 +19,11 @@ const {
    removeFromGroup
 } = require('../controllers/chat')
 
-router.route('/').get(getLoggedinUser, getAllChatrooms)
-router.route('/').post(getLoggedinUser, discuss)
+router.get('/', getLoggedinUser, getAllChatrooms)
+router.post('/', getLoggedinUser, discuss)
 router.route('/makeGroup').post(getLoggedinUser, makeGroup)
 router.route('/renameGroup').post(getLoggedinUser, renameGroup)
 router.route('/addToGroup').post(getLoggedinUser, addToGroup)
 router.route('/removeFromGroup').post(getLoggedinUser, removeFromGroup)
-// router.ruote('/changePassword').post(getLoggedinUser, changePassword)
-// router.route('/createGroupchat').post(getLoggedinUser, createGroupchat)
-
-// router.route('/', getHistory)
-// router.route('/renameGroupchat')
-// router.route('/removeGroupchat')
-// router.route('/invite')
 
 module.exports = router

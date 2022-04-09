@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Sidebar, Avatar, Nav, Box } from 'grommet'
-import Leftbar from '../components/Leftbar'
 import ChatList from '../components/ChatList'
 import ChatBox from '../components/ChatBox'
-// import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 // import { Chat } from '../state/State'
 // import axios from 'axios'
 
 
 const Discuss = () => {
-   // let userJSON = localStorage.getItem('userJSON')
-   // userJSON = JSON.parse(userJSON)
-   // console.log('jibai knn', userJSON)
+   const history = useHistory()
+   let userJSON = localStorage.getItem('userJSON')
+   if(userJSON===null || userJSON==='null'){
+      history.push('/')
+      return null
+   }
+   userJSON = JSON.parse(userJSON)
+   console.log('jibai knn', userJSON)
    return (
    <div style={{width: '100%'}}>
       <Box
-         align='center'>
-         <Leftbar/>
+         align='center'
+         margin={{top:'small'}}>
       </Box>
       <Box
          flex

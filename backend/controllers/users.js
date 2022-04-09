@@ -80,6 +80,8 @@ const sendEmailAdmin = asyncHandler(async(req, res) => {
 })
 
 const searchUser = asyncHandler(async (req, res) => {
+   // console.log(req.loggedInUser)
+   // return
    let searchParams = req.query.search
    let searchRegEx = new RegExp(searchParams, 'i') //regex for searching email/displayName
    const query = searchParams ? {
@@ -96,7 +98,8 @@ const searchUser = asyncHandler(async (req, res) => {
          $ne: req.loggedInUser._id
       }
    })
-   console.log('searchedUsers', searchedUsers)
+   // console.log('searchedUsers', searchedUsers)
+   res.send(searchedUsers)
 })
 
 // const mgKey = konfig.mailgunKey

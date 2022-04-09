@@ -16,7 +16,7 @@ const getLoggedinUser = asyncHandler(async (req, res, next) => {
       // console.log(exists)
       if(exists) {
          req.loggedInUser = await userSchema.findById(userID).select('-pw')
-         // console.log('req.user', req.user)
+         // console.log('req.user', req.loggedInUser)
          next()
       }
       else {

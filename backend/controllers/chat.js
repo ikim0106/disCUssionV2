@@ -15,7 +15,8 @@ const userSchema = require('../databaseSchema/userSchema')
 const messageSchema = require('../databaseSchema/messageSchema')
 
 const discuss = asyncHandler(async(req, res) => {
-   // console.log('req', req)
+   // console.log('req', req.body)
+   // return
    let { otherUserId } = req.body
 
    if(otherUserId==='' || !otherUserId) {
@@ -29,55 +30,26 @@ const discuss = asyncHandler(async(req, res) => {
    let otherUser = await chatSchema.find({
       //PMs of the current user
       is_group: false,
-      users: {$elemMatch: {$eq: otherUserId}}
-   })
-   .populate('users', '-pw')
-   .populate('last_message')
+      $and: [
+         {users: {$elemMatch: {$eq: otherUserId}} },
+         {users: {$elemMatch: {$eq: req.loggedInUser._id}}}
 
-   // console.log('otheruserid', otherUserId)
-   // console.log('currentuserid', req.loggedInUser._id.toString())
-
-   let currentUser = await chatSchema.find({
-      //PMs of the other user
-      is_group: false,
-      users: {$elemMatch: {$eq: req.loggedInUser._id}}
+      ]
    })
    .populate('users', '-pw')
    .populate('last_message')
    
-   currentUser = await userSchema
-   .populate(currentUser, {
-      path: 'last_message.sender',
-      select: 'displayName email avatar is_admin',
-   })
-
    otherUser = await userSchema
    .populate(otherUser, {
       path: 'last_message.sender',
       select: 'displayName email avatar is_admin',
    })
-
-   // console.log('otheruser', otherUser)
-   // console.log('currentuser', currentUser)
    
-   let PM = undefined
-   // return
+   console.log('otheruser', otherUser.length)
 
-   //classic nested for loop to compare chatrooms something like this can be handled in the database/mongoose, but i guess our host can handle this type of simple computation
-   if(currentUser!==undefined && otherUser!==undefined){
-      for(let i=0; i<otherUser.length; i++) {
-         for(let j=0; j< currentUser.length; j++) {
-            if(currentUser[j].users._id===otherUser[i].users._id) PM = currentUser[i]
-            break
-         }
-      }
-   }
-   
-   // console.log('PM', PM)
-   // return
-
-   if(PM !== undefined && PM.length !== 0) {
-      res.send(PM)
+   if(otherUser.length!==0) {
+      res.status(200)
+      res.send(otherUser)
    }
    else {
       let newChatParams = {
@@ -104,7 +76,11 @@ const discuss = asyncHandler(async(req, res) => {
 
 const makeGroup = asyncHandler(async(req, res) => {
    let content = req.body
+   // console.log(req.body)
+   // return
+
    let selectedUsers = JSON.parse(content.users)
+
    let groupName = `${req.loggedInUser.displayName}'s group chat`
    if(content.name) {
       //if name is provided, set to that name, otherwise have a default group chat name
@@ -139,9 +115,12 @@ const makeGroup = asyncHandler(async(req, res) => {
    const removedPasswords = await chatSchema.findOne({_id: groupID})
       .populate('users', '-pw')
       .populate('manager', '-pw')
+
+   // console.log('removedPasswords', removedPasswords)
+   // return
    
    res.status(200)
-   res.json(removedPasswords)
+   res.send(removedPasswords)
 })
 
 const getAllChatrooms = asyncHandler(async(req, res) => {
