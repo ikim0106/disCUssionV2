@@ -15,7 +15,6 @@ server.js handles the backend server using express and its routes
 const express = require('express')
 // const { append } = require('express/lib/response')
 const config = require('../config.json')
-const {dummyData} = require('./data/dummyData')
 const connectToMongoDB = require('./mongo/mongoDB')
 const {infamous404, errorHandler} = require('./controllers/handleErrors')
 const PORT = parseInt(config.port) || 3004 //default to 3004
@@ -27,10 +26,6 @@ const serber = express() //no i didn't misspell server
 serber.use(express.json()) //let express use JSON formatted data
 
 connectToMongoDB()
-
-serber.get('/api/getChats/', (request, response) => {
-   response.send(dummyData)
-})
 
 serber.use('/api/users', userRouter)
 serber.use('/api/discuss', chatRouter)
