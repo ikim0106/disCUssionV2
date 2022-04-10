@@ -290,7 +290,7 @@ const removeFromGroup = asyncHandler(async(req,res) => {
    }
    await toRemoveGroup.save()
    res.status(200)
-   res.send(toRemoveGroup.users)
+   res.send(toRemoveGroup)
    return res
 })
 

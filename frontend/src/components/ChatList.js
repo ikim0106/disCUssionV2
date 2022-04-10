@@ -97,6 +97,12 @@ const ChatList = () => {
       // console.log('other user is', me)
       return users[0]._id !== me._id ? users[0].displayName : users[1].displayName
    }
+
+   const getOtherUserAvatar = (me, users) => {
+      // me=JSON.parse(me)
+      // console.log('other user is', me)
+      return users[0]._id !== me._id ? users[0].avatar : users[1].avatar
+   }
    
    const getChat = async() => {
       let reqConfig = {
@@ -191,11 +197,11 @@ const ChatList = () => {
   return (
    <Box height='97vh' width='30vw'>
    <Box 
-    background="brand" 
+    background="#98ACF8" 
     width='30vw' 
     responsive={true} 
     height='8vh'
-    border={{color:'skyblue', size: 'medium'}}
+    border={{color:'#BEDCFA', size: 'medium'}}
    >
      <Box pad='small' direction='row' alignContent='stretch'>
         <Box direction='row' 
@@ -267,7 +273,7 @@ const ChatList = () => {
          position:'absolute',
          zIndex: '0'
       }}
-      background='skyblue'
+      background='#BEDCFA'
       width='30vw'
       margin={{top:'8vh'}}
       height='87vh'
@@ -289,10 +295,10 @@ const ChatList = () => {
                onClick={()=>handleClick(item)}
             >
                {!item.is_group && (
-                  <Avatar size='large' src={item.users[0].avatar}> </Avatar>
+                  <Avatar size='medium' src={getOtherUserAvatar(loggedinUser, item.users)}> </Avatar>
                )}
                {item.is_group && (
-                  <Avatar size='large' src='https://cdn.iconscout.com/icon/free/png-256/chat-2130787-1794829.png'> </Avatar>
+                  <Avatar size='medium' src='https://cdn.iconscout.com/icon/free/png-256/chat-2130787-1794829.png'> </Avatar>
                )}
                <Text color='Black' size='large' margin='small'>
                   {!item.is_group ? getOtherUser(loggedinUser, item.users) : item.name}
@@ -361,7 +367,7 @@ const ChatList = () => {
                      onClick={searchUsers}
                   />
                </Box>
-               <Box direction='row'>
+               <Box direction='row' width='auto' height='auto'>
                {tags.map(user=>(
                   <Box
                      border={{

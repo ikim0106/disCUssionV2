@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Sidebar, Avatar, Nav, Box } from 'grommet'
+import React from 'react'
+import {Box } from 'grommet'
 import ChatList from '../components/ChatList'
 import ChatBox from '../components/ChatBox'
 import {useHistory} from 'react-router-dom'
 // import { Chat } from '../state/State'
 // import axios from 'axios'
-
 
 const Discuss = () => {
    const history = useHistory()

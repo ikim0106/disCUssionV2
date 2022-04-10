@@ -140,7 +140,7 @@ const loginAdmin = asyncHandler(async(req, res) => {
 const loginUser = asyncHandler(async(req, res) => {
    const {email, pw} = req.body
    const login = await userSchema.findOne({email, pw})
-   console.log(login)
+   // console.log(login)
    if(!login) {
       res.status(401)
       res.send('wrong details mfer')

@@ -17,7 +17,7 @@ let Schema = mongoose.Schema
 
 let messageSchema = new Schema({
    sender: [{type: mongoose.Schema.Types.ObjectId, ref: 'userModel'}],
-   send_in: [{type: mongoose.Schema.Types.ObjectId, ref: 'chatModel'}],
+   send_in: [{type: mongoose.Schema.Types.ObjectId, ref: 'chatroomModel'}],
    contains_link: {type: Boolean, default: false},
    message: {type: String, contains_link: Boolean, trim: true},
 },

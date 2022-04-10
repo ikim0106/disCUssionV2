@@ -12,6 +12,7 @@ import {useHistory} from 'react-router-dom'
 const ChatState = ({children}) => {
    const [loggedinUser, setLoggedinUser] = React.useState()
    const [selectedChat, setSelectedChat] = React.useState()
+   // const [groupUsers, setGroupUsers] = React.useState()
    const [allChats, setAllChats] = React.useState([])
    const history = useHistory()
    
@@ -19,8 +20,7 @@ const ChatState = ({children}) => {
       let userJSON = localStorage.getItem('userJSON')
       if(userJSON !== 'undefined' && userJSON !== null) {
          console.log('userJSON', userJSON)
-         JSON.parse(userJSON)
-         setLoggedinUser(userJSON)
+         setLoggedinUser(JSON.parse(userJSON))
       }
       else {
          // console.log('redir', redir)
@@ -41,7 +41,7 @@ const ChatState = ({children}) => {
 const Context = React.createContext()
 export const Chat = () => {
    const lmao = React.useContext(Context)
-   console.log('lmao', lmao)
+   // console.log('lmao', lmao)
    return lmao
 }
 
