@@ -37,6 +37,7 @@ const ChatList = () => {
    const [tags, setTags] = React.useState([])
    const [tagToast, setTagToast] = React.useState(false)
    const [memberToast, setmMemberToast] = React.useState(false)
+   const [pwToast, setPwToast] = React.useState(false)
 
    let userJSON = localStorage.getItem('userJSON')
    userJSON = JSON.parse(userJSON)
@@ -191,6 +192,7 @@ const ChatList = () => {
       }
 
       await axios.post('/api/users/changePassword', {id, newPassword}, postConfig)
+      setPwToast(true)
    }
    
 
@@ -522,6 +524,14 @@ const ChatList = () => {
         />
       )}
       
+      {pwToast && (
+        <Notification
+          toast
+          status='normal'
+          title="Your password has been changed"
+          onClose={() => setPwToast(false)}
+        />
+      )}
    </Box>
   )
 }
